@@ -1,0 +1,17 @@
+{% extends "osnova.html" %}
+
+<!-- zgornja koda skopira osnovo html template v ta fajl -->
+
+
+{% block vsebina %}
+
+    <h1>Kontakt</h1>
+
+    <form method="POST" action="/poslji-sporocilo">
+        <p> Zadeva: <input name="zadeva:"> </p>
+        <p> SPOROCILO: <input name="sporocilo"> </p>
+        <p><button type="submit">Poslji</button></p>
+    </form>
+
+
+{% endblock %}
