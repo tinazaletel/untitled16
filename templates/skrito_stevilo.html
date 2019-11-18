@@ -1,0 +1,12 @@
+{% extends "osnova.html" %}
+{% block vsebina %}
+
+<h1> Skrito stevilo</h1>
+
+<p> Vpisi skrito stevilo:</p>
+<form method="post" action="/poslji-skrito-stevilo" >
+    <input name="stevilo" >
+    <button type="submit">Poslji</button>
+</form>
+
+{% endblock %}

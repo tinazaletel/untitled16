@@ -5,5 +5,31 @@
 {% block vsebina %}
 
 <h1>Dobrodosli na moji spletni strani</h1>
+
+{% if ime %}
+    <p> Prijavljen si pod imenom {{ ime }}</p>
+    <form method="POST" action="/komentar">
+        <input name="vsebina" placeholder="Vpisi komentar">
+        <button type="submit">Poslji</button>
+    </form>
+
+    <h2>Komentarji</h2>
+    {% for komentar in komentarji %}
+    <p><strong>{{ komentar.avtor }}: </strong> {{ komentar.vsebina }}</p>
+    {% endfor %}
+
+
+{% else %}
+
+    <p>Prijavi se:</p>
+
+    <form method="POST" action="/prijava">
+        <input name="ime" placeholder="Tovje ime">
+        <button type="submit">Prijava</button>
+    </form>
+
+{% endif %}
 {% endblock %}
+
+
 
