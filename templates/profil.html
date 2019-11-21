@@ -1,0 +1,17 @@
+{% extends "osnova.html" %}
+
+<!-- zgornja koda skopira osnovo html template v ta fajl -->
+
+{% block vsebina %}
+
+<H1> Moj profil</H1>
+<p> <strong> Ime:</strong> {{ uporabnik.ime }}</p>
+<p> <strong> Email:</strong> {{ uporabnik.email }}</p>
+
+<br>
+
+<p><a href="/profil/uredi">Uredi</a></p>
+<p><a href="/profil/izbris">Izbris</a></p>
+
+
+{% endblock %}

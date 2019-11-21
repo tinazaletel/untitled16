@@ -67,14 +67,14 @@ def prijava():
     ime = request.form.get("ime")
     originalno_geslo = request.form.get("geslo")
     geslo = hashlib.sha256(originalno_geslo.encode()).hexdigest()
-q
-  #  return render_template("prva_stran.html", ime)
+
+    #  return render_template("prva_stran.html", ime)
 
     sejna_vrednost = str(uuid.uuid4 ())
 
     uporabnik = db.query(Uporabnik). filter_by(ime=ime).first()
     if not uporabnik:
-        uporabnik = Uporabnik(ime=ime, geslo=geslo, sejna_vrednost=sejna_vrednost)
+        uporabnik = Uporabnik(ime=ime, email="", geslo=geslo, sejna_vrednost=sejna_vrednost)
     else:
         if geslo == uporabnik.geslo:
                 uporabnik.sejna_vrednost = sejna_vrednost
@@ -134,6 +134,16 @@ def poslji_skrito_stevilo():
 
     else:
         return "NI PRAVILNO"
+
+@app.route("/profil")
+def moj_profil():
+    sejna_vrednost = request.cookies.get("sejna_vrednost")
+    uporabnik = db.query(Uporabnik).filter_by(sejna_vrednost=sejna_vrednost).first()
+
+    if not uporabnik:
+        return "Napacna seja"
+
+    return render_template("profil.html", uporabnik=uporabnik)
 
 
 
