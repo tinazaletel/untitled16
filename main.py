@@ -1,7 +1,7 @@
 # kako se odpre prva stran
 
 # kako polinka[ html datoteko
-
+import hashlib
 import random
 import uuid
 from flask import Flask, render_template, request, redirect, make_response
@@ -65,15 +65,24 @@ def poslji_sporocilo ():
 @app.route("/prijava", methods=["POST"])
 def prijava():
     ime = request.form.get("ime")
+    originalno_geslo = request.form.get("geslo")
+    geslo = hashlib.sha256(originalno_geslo.encode()).hexdigest()
+q
   #  return render_template("prva_stran.html", ime)
 
     sejna_vrednost = str(uuid.uuid4 ())
 
     uporabnik = db.query(Uporabnik). filter_by(ime=ime).first()
     if not uporabnik:
-        uporabnik = Uporabnik(ime=ime, sejna_vrednost=sejna_vrednost)
+        uporabnik = Uporabnik(ime=ime, geslo=geslo, sejna_vrednost=sejna_vrednost)
     else:
+        if geslo == uporabnik.geslo:
+                uporabnik.sejna_vrednost = sejna_vrednost
+        else:
+            return "Napacno geslo"
         uporabnik.sejna_vrednost = sejna_vrednost
+
+        #geslo je potrebno sifrirati
 
     db.add(uporabnik)
     db.commit()
@@ -104,8 +113,6 @@ def poslji_komentar():
 
 
 
-
-
 @app.route("/skrito-stevilo")
 def skrito_stevilo():
     odgovor = make_response(render_template("skrito_stevilo.html"))
@@ -114,7 +121,6 @@ def skrito_stevilo():
         stevilo = str(random.randint(1, 20))
         odgovor.set_cookie("SkritoStevilo", stevilo)
     return odgovor
-
 
 
 
@@ -128,9 +134,6 @@ def poslji_skrito_stevilo():
 
     else:
         return "NI PRAVILNO"
-
-
-
 
 
 
