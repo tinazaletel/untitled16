@@ -1,6 +1,6 @@
 from sqla_wrapper import SQLAlchemy
 import os
-db = SQLAlchemy(os.getenv("DATABASE_URL", "sqlite:///podatkovna-baza.sqlite"))
+db = SQLAlchemy(os.getenv("DATABASE_URL", "sqlite:///podatkovna-baza.sqlite?check_same_thread=False"))
 
 class Komentar(db.Model):
     id = db.Column(db.Integer, primary_key=True)
