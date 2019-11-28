@@ -4,6 +4,8 @@
 import hashlib
 import random
 import uuid
+import requests
+import json
 from flask import Flask, render_template, request, redirect, make_response
 from modeli import Komentar, db, Uporabnik
 
@@ -212,6 +214,29 @@ def prikaz_uporabnika(uporabnik_id):
     return render_template("prikaz_uporabnika.html", uporabnik=uporabnik)
 
 # <uporabnik_id> to je spremenljivka ki bo dadala id stevilo uporabniku
+
+# <dodali funkcijo vreme
+
+@app.route("/vreme")
+def vreme():
+    odgovor_geo = json.loads(requests.get("https://geocode.xyz/" + mesto +"?json=1").text)
+    lon = odgovor_geo["longt"]
+    lat = odgovor_geo["latt"]
+    mesto = "Maribor"
+
+
+    url = "https://opendata.si/vreme/report/?lat=" + lat + "&lon=" + lon
+
+    odgovor = json.loads(requests.get(url).text)
+
+    dez = odgovor ["forecast"] ["data"] [0] ["rain"]
+    return render_template("vreme.html", vreme=dez)
+
+
+
+
+
+
 
 # return redirect("/") odpre novo stran
 if __name__== '__main__':
