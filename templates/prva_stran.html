@@ -9,7 +9,7 @@
 {% if ime %}
     <p> Prijavljen si pod imenom {{ ime }}</p>
     <form method="POST" action="/komentar">
-        <input name="vsebina" placeholder="Vpisi komentar">
+        <textarea name="vsebina" placeholder="Vpisi komentar"></textarea>
         <button type="submit">Poslji</button>
     </form>
 

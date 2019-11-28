@@ -1,0 +1,17 @@
+{% extends "osnova.html" %}
+
+<!-- zgornja koda skopira osnovo html template v ta fajl -->
+
+{% block vsebina %}
+
+<H1> Uredi profil</H1>
+<form method="POST" >
+    <p>Ime: <input name="ime" value="{{ uporabnik.ime }}"></p>
+    <p>Email:<input name="email" type="email" value="{{ uporabnik.email }}"></p>
+    <p><button type="submit">Shrani</button></p>
+
+
+</form>
+
+
+{% endblock %}

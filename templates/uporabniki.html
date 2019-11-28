@@ -1,0 +1,25 @@
+{% extends "osnova.html" %}
+
+<!-- zgornja koda skopira osnovo html template v ta fajl -->
+
+{% block vsebina %}
+
+<H1> Uporabniki</H1>
+
+<ul>
+{% for uporabnik in uporabniki %}
+     <li>
+         <a href="/uporabniki/{{ uporabnik.id }}">{{ uporabnik.ime }}</a>
+     </li>
+    {% if uporabnik.je_blokiran %}
+        <span style="color:red">BLOKIRAN </span>
+    {% endif %}
+
+{% endfor %}
+
+</ul>
+
+</form>
+
+
+{% endblock %}

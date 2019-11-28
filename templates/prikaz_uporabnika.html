@@ -1,10 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "osnova.html" %}
 
-</body>
-</html>
+<!-- zgornja koda skopira osnovo html template v ta fajl -->
+
+{% block vsebina %}
+
+<H1> Prikaz uporabnika {{ uporabnik.id }} </H1>
+<p> <strong> Ime:</strong> {{ uporabnik.ime }}</p>
+<p> <strong> Email:</strong> {{ uporabnik.email }}</p>
+
+<form>
+
+    <input type="checkbox" name="je_blokiran"
+
+           {% if uporabnik.je_blokiran %}checked{% endif %}
+
+    > Uporabnik blokiran
+    <br>
+    <button type="submit">Shrani</button>
+</form>
+
+{% endblock %}
