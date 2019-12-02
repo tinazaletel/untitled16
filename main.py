@@ -219,18 +219,26 @@ def prikaz_uporabnika(uporabnik_id):
 
 @app.route("/vreme")
 def vreme():
-    odgovor_geo = json.loads(requests.get("https://geocode.xyz/" + mesto +"?json=1").text)
-    lon = odgovor_geo["longt"]
-    lat = odgovor_geo["latt"]
-    mesto = "Maribor"
+    mesto = request.args.get("lokacija")
+
+    if mesto:
+        odgovor_geo = json.loads(requests.get("https://geocode.xyz/" + mesto +"?json=1").text)
+        lon = odgovor_geo["longt"]
+        lat = odgovor_geo["latt"]
 
 
-    url = "https://opendata.si/vreme/report/?lat=" + lat + "&lon=" + lon
 
-    odgovor = json.loads(requests.get(url).text)
+        url = "https://opendata.si/vreme/report/?lat=" + lat + "&lon=" + lon
 
-    dez = odgovor ["forecast"] ["data"] [0] ["rain"]
-    return render_template("vreme.html", vreme=dez)
+        odgovor = json.loads(requests.get(url).text)
+
+        dez = odgovor ["forecast"] ["data"] [0] ["rain"]
+
+    else:
+        dez = None
+
+
+    return render_template("vreme.html", vreme=dez, mesto=mesto)
 
 
 

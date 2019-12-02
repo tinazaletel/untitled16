@@ -6,6 +6,19 @@
 
 <H1> Vreme</H1>
 
-<p>V naslednjih urah bo zapadlo <strong> {{vreme}} ml</strong> dezja.</p>
+{% if mesto %}
+
+    <p>V naslednjih urah bo v mestu {{ mesto }} zapadlo <strong> {{vreme}} ml</strong> dezja.</p>
+
+{% else %}
+<form method="get">
+    <input name="lokacija" placeholder="Vpi[i mesto">
+    <button type="submit">Poslji</button>
+
+
+</form>
+
+
+{% endif %}
 
 {% endblock %}
